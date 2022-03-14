@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  myForm : FormGroup;
 
-  constructor() { }
+  constructor(private formBuilder : FormBuilder,private client : HttpClient) { 
+    this.myForm = formBuilder.group({
+
+    })
+  }
 
   ngOnInit(): void {
   }
+  onSubmit(){
+    
+  }
+
 
 }
