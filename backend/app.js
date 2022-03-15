@@ -30,7 +30,7 @@ app.use((req, res, next) => {
         });
     }
     else {
-        // req.db = db;
+        req.db = db;
         next();
     }
 })

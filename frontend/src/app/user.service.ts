@@ -16,19 +16,21 @@ export class UserService {
     return of(null)
   }
 
-  signup(user : {}){
-    this.http.post('http://localhost:3000/api/users/signup', user).pipe(map((data:any) => {
-      if(data)return data
-      else return null
-    }))
+  signup(user : any){
+    return this.http.post('http://localhost:3000/api/users/signup', user).subscribe((data:any) => {
+      localStorage.setItem('token', data.token.toString())
+      localStorage.setItem('userEmail', data.userEmail.toString())
+      localStorage.setItem('userRole', data.userRole.toString())
+      localStorage.setItem('userFullname', data.userFullname.toString())
+    })
   }
 
-  login(user : {}){
-    this.http.post('http://localhost:3000/api/users/login', user).subscribe((data:any) => {
-      localStorage.setItem('token', data.token.toSting())
-      localStorage.setItem('userEmail', data.userEmail.toSting())
-      localStorage.setItem('userRole', data.userRole.toSting())
-      localStorage.setItem('userFullname', data.userFullname.toSting())
+  login(user : any){
+    return this.http.post('http://localhost:3000/api/users/login', user).subscribe((data:any) => {
+      localStorage.setItem('token', data.token.toString())
+      localStorage.setItem('userEmail', data.userEmail.toString())
+      localStorage.setItem('userRole', data.userRole.toString())
+      localStorage.setItem('userFullname', data.userFullname.toString())
     })
   }
 
