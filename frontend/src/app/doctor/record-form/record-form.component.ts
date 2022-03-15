@@ -18,7 +18,6 @@ export class RecordFormComponent  {
       'fullname': ['', [Validators.required]],
       'address': ['', [Validators.required]],
       'email': ['', [Validators.required, Validators.email]],
-      'password': ['', [Validators.required]],
       'dob': ['', [Validators.required]],
       'gen': ['PATIENT'],
       'doctor-name': [''],
