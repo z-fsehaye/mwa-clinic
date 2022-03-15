@@ -1,47 +1,66 @@
-<form [formGroup] = "recordForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="recordForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-        <label for="fullname">Full Name</label>
-        <input type="text" class="form-control" id="fullname" formControlName="fullname">
-        <div *ngIf="!recordForm.get('fullname')?.valid">
-            Invalid Name
+      <label for="fullname">Full Name</label>
+      <input type="text" class="form-control" id="fullname" formControlName="fullname">
+      <div
+        *ngIf="recordForm.get('fullname')?.invalid && (recordForm.get('fullname')?.dirty || recordForm.get('fullname')?.touched)"
+        class="alert alert-danger">
+        <div *ngIf="recordForm.get('fullname')?.errors?.['required']">
+          Required
         </div>
+      </div>
     </div>
+  
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" class="form-control" id="address" formControlName="address">
+      <div
+        *ngIf="recordForm.get('Address')?.invalid && (recordForm.get('address')?.dirty || recordForm.get('address')?.touched)"
+        class="alert alert-danger">
+        <div *ngIf="recordForm.get('address')?.errors?.['required']">
+          Required
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="text" class="form-control" id="dob" formControlName="dob">
+        <div
+          *ngIf="recordForm.get('dob')?.invalid && (recordForm.get('dob')?.dirty || recordForm.get('dob')?.touched)"
+          class="alert alert-danger">
+          <div *ngIf="recordForm.get('dob')?.errors?.['required']">
+            Required
+          </div>
+        </div>
+      </div>
     <div class="form-group">
         <label for="email">Email</label>
         <input type="text" class="form-control" id="email" formControlName="email">
-        <div *ngIf="!recordForm.get('email')?.valid">
-            Invalid Email
+        <div
+          *ngIf="recordForm.get('email')?.invalid && (recordForm.get('email')?.dirty || recordForm.get('email')?.touched)"
+          class="alert alert-danger">
+          <div *ngIf="recordForm.get('email')?.errors?.['required']">
+            Required
+          </div>
+          <div *ngIf="!recordForm.get('email')?.errors?.['email']">
+            Must be email!
+          </div>
         </div>
-    </div>
+      </div>  
     <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" formControlName="username">
-        <div *ngIf="!recordForm.get('username')?.valid">
-            Invalid User Name
-        </div>
+      <label for="gender">Gender</label>
+      <select class="form-control" id="gender" formControlName="gender">
+        <option *ngFor="let gen of gender" [value]="gen">{{gen}}</option>
+      </select>
     </div>
-
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="text" class="form-control" id="password" formControlName="password">
-        <div *ngIf="!recordForm.get('password')?.valid">
-            Invalid Password
-        </div>
-    </div>
-    
-    <!-- <div class="form-group">
-        <label>Role</label>
-        <div class="checkbox" *ngFor="let role of roles">
-            <input type="radio" formControlName="role" [value]="role"> {{role}}
-        </div>
-    </div> -->
     <div>
-        <label>Roles</label><br>
-        <input type="radio" id="html" name="fav_language" value="HTML">
-        <label for="html">Doctor</label><br>
-        <input type="radio" id="css" name="fav_language" value="CSS">
-        <label for="css">Patient</label><br> 
+        <input type="hidden" value="" id="doctor-name">
     </div>
+    <div>
+        <input type="hidden" value="" id="doctor-email">
+    </div>
+  
     <button type="submit" class="btn btn-primary" [disabled]="!recordForm.valid">Submit</button>
-
-</form>
+  
+  </form>
+  
