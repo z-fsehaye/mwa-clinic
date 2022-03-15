@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-doctor-home',
@@ -9,7 +9,5 @@ export class DoctorHomeComponent {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
 
 }
