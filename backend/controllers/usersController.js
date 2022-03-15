@@ -12,9 +12,9 @@ module.exports.signup = (async (req, res, next) => {
         const token = auth.generateToken(user)
         const response = {
             "token": token,
-            "email": user.email,
-            "role": user.role,
-            "fullname" : user.fullname
+            "userEmail": user.email,
+            "userRole": user.role,
+            "userFullname" : user.fullname
         }
         res.status(200).json(response)
     }
@@ -38,9 +38,9 @@ module.exports.login = (async (req, res, next) => {
         // res.header({token})
         res.status(200).json({
             "token": token,
-            "email": user.email,
-            "role": user.role,
-            "fullname" : user.fullname
+            "userEmail": user.email,
+            "userRole": user.role,
+            "userFullname" : user.fullname
         })
     }
     else {

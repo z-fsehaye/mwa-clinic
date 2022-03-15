@@ -5,11 +5,13 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RoleGuard implements CanActivate {
+export class DoctorRoleGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+    
+      if(localStorage.getItem('userRole') == 'DOCTOR') return true;
+      else return false;
   }
   
 }
