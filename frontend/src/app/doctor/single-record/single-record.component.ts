@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RecordService } from 'src/app/record.service';
 
 @Component({
   selector: 'app-single-record',
@@ -8,7 +9,11 @@ import { Router } from '@angular/router';
 })
 export class SingleRecordComponent implements OnInit {
   visits : string [] = []
-  constructor(private router : Router) { }
+  private record:any = {}
+  constructor(private router : Router, private recordService: RecordService, private route: ActivatedRoute) {
+    let userEmail: any= localStorage.getItem('userEmail')
+    recordService.getRecordByPatientEmail(userEmail, 'sd')
+  }
 
   ngOnInit(): void {
   }

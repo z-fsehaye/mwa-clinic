@@ -2,12 +2,15 @@ module.exports.addRecord = async (req, res, next) => {
     let requestRecord = req.body;
 
     let record = {
-        'fullname': requestRecord.fullname,
-        'address': requestRecord.address,
-        'email': requestRecord.email,
-        'dob': requestRecord.dob,
-        'gen': requestRecord.gen,
-        'doctor': { 'doctorName': requestRecord.doctorName, 'doctorEmail': requestRecord.doctorEmail }
+        'patientInfo': {
+            'fullname': requestRecord.fullname,
+            'address': requestRecord.address,
+            'email': requestRecord.email,
+            'dob': requestRecord.dob,
+            'gen': requestRecord.gen,
+            'doctor': { 'doctorName': requestRecord.doctorName, 'doctorEmail': requestRecord.doctorEmail }
+        },
+        'visits': []
     }
 
     let result = await req.db.collection('records').insertOne(record);
@@ -20,12 +23,15 @@ module.exports.updateRecord = async (req, res, next) => {
     let requestRecord = req.body;
 
     let record = {
-        'fullname': requestRecord.fullname,
-        'address': requestRecord.address,
-        'email': requestRecord.email,
-        'dob': requestRecord.dob,
-        'gen': requestRecord.gen,
-        'doctor': { 'doctorName': requestRecord.doctorName, 'doctorEmail': requestRecord.doctorEmail }
+        'patientInfo': {
+            'fullname': requestRecord.fullname,
+            'address': requestRecord.address,
+            'email': requestRecord.email,
+            'dob': requestRecord.dob,
+            'gen': requestRecord.gen,
+            'doctor': { 'doctorName': requestRecord.doctorName, 'doctorEmail': requestRecord.doctorEmail }
+        },
+        'visits': []
     }
 
     let result = await req.db.collection('records')
@@ -64,7 +70,7 @@ module.exports.getRecordByPatientEmail = async (req, res, next) => {
 }
 
 module.exports.getPatientRecordsForDoctor = async (req, res, next) => {
-    let records = await req.db.collection('records').find({ 'doctor.email': req.params.doc_email }).toArray();
+    let records = await req.db.collection('records').find({ 'patientInfo.doctor.doctorEmail': req.params.doc_email }).toArray();
     if (records) {
         res.json(records)
     }

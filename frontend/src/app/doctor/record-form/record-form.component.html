@@ -48,16 +48,16 @@
         </div>
       </div>  
     <div class="form-group">
-      <label for="gender">Gender</label>
-      <select class="form-control" id="gender" formControlName="gender">
+      <label for="gen">Gender</label>
+      <select class="form-control" id="gen" formControlName="gen">
         <option *ngFor="let gen of gender" [value]="gen">{{gen}}</option>
       </select>
     </div>
     <div>
-        <input type="hidden" value="" id="doctorName">
+        <input type="hidden" class="form-control" id="doctorName" formControlName="doctorName" [value]="docName">
     </div>
     <div>
-        <input type="hidden" value="" id="doctorEmail">
+        <input type="hidden" class="form-control" id="doctorEmail" formControlName="doctorEmail" [value]="docEmail">
     </div>
   
     <button type="submit" class="btn btn-primary" [disabled]="!recordForm.valid">Submit</button>

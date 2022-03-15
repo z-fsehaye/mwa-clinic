@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 
@@ -10,10 +10,15 @@ export class RecordService {
   constructor(private http: HttpClient) { }
 
   addRecord(record: any) {
-    this.http.post('http://localhost:3000/api/records/new-record', record).pipe(map((data: any) => {
-      if (data) return data
-      else return null
-    }))
+    let pRec;
+    this.http.post('http://localhost:3000/api/records/new-record', record).subscribe((data: any) => {
+      pRec = data
+    })
+    return pRec
+    // this.http.post('http://localhost:3000/api/records/new-record', record).pipe(map((data: any) => {
+    //   if (data) return data
+    //   else return null
+    // }))
   }
 
   updateRecord(docEmail: string, patientEmail: string, record: any) {
@@ -33,24 +38,20 @@ export class RecordService {
 
   getRecordByPatientEmail(userEmail: string, patientEmail: string) {
     this.http.get('http://localhost:3000/api/records/user/' + userEmail + '/record/' + patientEmail)
-      .pipe(map((data:any) => {
-        if(data) return data
+      .pipe(map((data: any) => {
+        if (data) return data
         else return null
       }))
   }
 
-  getPatientRecordsForDoctor(docEmail: string){
-    this.http.get('http://localhost:3000/api/records/doctor/' + docEmail)
-      .pipe(map((data:any) => {
-        if(data) return data
-        else return null
-      }))
+  getPatientRecordsForDoctor(docEmail: string) {
+    return this.http.get('http://localhost:3000/api/records/doctor/' + docEmail)
   }
 
-  getPatientVisitById(userEmail: string, patientEmail: string, visitId: string){
+  getPatientVisitById(userEmail: string, patientEmail: string, visitId: string) {
     this.http.get('http://localhost:3000/api/records/user/' + userEmail + '/record/' + patientEmail + '/visit/' + visitId)
-      .pipe(map((data:any) => {
-        if(data) return data
+      .pipe(map((data: any) => {
+        if (data) return data
         else return null
       }))
   }
