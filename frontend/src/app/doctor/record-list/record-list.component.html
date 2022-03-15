@@ -1,1 +1,34 @@
-<p>record-list works!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">Full Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Date of Birth </th>
+            <th scope="col">Update Record </th>
+            <th scope="col">Patient Record </th>
+        </tr>
+
+        <tr *ngFor="let record of recordList">
+            <td>{{record}</td>
+            <td>{{record}}</td>
+            <td>{{record}}</td>
+            <td>{{record}}</td>
+            <td><button (click)="patientRecord(record)">Open Record</button></td>
+            <td><button (click)="updateRecord(record)">Update Record</button></td>
+        </tr>
+
+    </table>
+</body>
+
+</html>

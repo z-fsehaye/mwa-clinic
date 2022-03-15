@@ -22,13 +22,17 @@ import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
     BillFormComponent,
     SingleVisitComponent,
     SingleBillComponent,
-    DoctorHomeComponent 
+    DoctorHomeComponent ,
+    VisitFormComponent
+    
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([
       {path : '', component : DoctorHomeComponent},
-      {path : 'add-record',component : RecordFormComponent}
+      {path : 'add-record',component : RecordFormComponent},
+      {path : 'add-visit',component : VisitFormComponent},
+      {path : 'list-records',component : RecordListComponent}
     ]),
     ReactiveFormsModule
   ],

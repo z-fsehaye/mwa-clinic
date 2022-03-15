@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./record-list.component.css']
 })
 export class RecordListComponent implements OnInit {
+  recordList : string [] = [];
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+  patientRecord(x:any){
+
+  }
+  updateRecord(x:any){
+    
   }
 
 }
