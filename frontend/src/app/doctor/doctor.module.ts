@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RecordListComponent } from './record-list/record-list.component';
 import { SingleRecordComponent } from './single-record/single-record.component';
@@ -7,6 +7,9 @@ import { VisitFormComponent } from './visit-form/visit-form.component';
 import { BillFormComponent } from './bill-form/bill-form.component';
 import { SingleVisitComponent } from './single-visit/single-visit.component';
 import { SingleBillComponent } from './single-bill/single-bill.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
 
 
 
@@ -18,10 +21,18 @@ import { SingleBillComponent } from './single-bill/single-bill.component';
     VisitFormComponent,
     BillFormComponent,
     SingleVisitComponent,
-    SingleBillComponent
+    SingleBillComponent,
+    
+    
   ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    RouterModule.forChild([
+      {path : '', component : DoctorHomeComponent},
+      {path : 'add-record',component : RecordFormComponent}
+    ]),
+    ReactiveFormsModule
+  ],
+  
 })
 export class DoctorModule { }

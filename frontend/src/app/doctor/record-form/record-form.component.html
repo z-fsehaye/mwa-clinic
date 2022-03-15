@@ -1,1 +1,47 @@
-<p>record-form works!</p>
+<form [formGroup] = "recordForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="fullname">Full Name</label>
+        <input type="text" class="form-control" id="fullname" formControlName="fullname">
+        <div *ngIf="!recordForm.get('fullname')?.valid">
+            Invalid Name
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" formControlName="email">
+        <div *ngIf="!recordForm.get('email')?.valid">
+            Invalid Email
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" formControlName="username">
+        <div *ngIf="!recordForm.get('username')?.valid">
+            Invalid User Name
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" id="password" formControlName="password">
+        <div *ngIf="!recordForm.get('password')?.valid">
+            Invalid Password
+        </div>
+    </div>
+    
+    <!-- <div class="form-group">
+        <label>Role</label>
+        <div class="checkbox" *ngFor="let role of roles">
+            <input type="radio" formControlName="role" [value]="role"> {{role}}
+        </div>
+    </div> -->
+    <div>
+        <label>Roles</label><br>
+        <input type="radio" id="html" name="fav_language" value="HTML">
+        <label for="html">Doctor</label><br>
+        <input type="radio" id="css" name="fav_language" value="CSS">
+        <label for="css">Patient</label><br> 
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!recordForm.valid">Submit</button>
+
+</form>
