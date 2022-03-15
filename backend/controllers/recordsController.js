@@ -50,16 +50,18 @@ module.exports.getRecordByPatientEmail = async (req, res, next) => {
     let user = await req.db.collection('users').findOne({ email: req.params.user_email })
 
     let record;
+    record = await req.db.collection('records').findOne({ 'patientInfo.email': req.params.p_email, 'patientInfo.doctor.doctorEmail': req.params.user_email })
 
-    if (user.role == "DOCTOR") {
-        record = req.db.collection('records').findOne({ email: p_email, 'doctoer.email': req.params.user_email })
-    }
-    else if (req.params.user_email == req.params.p_email) {
-        record = req.db.collection('records').findOne({ email: req.params.user_email })
-    }
-    else {
-        record = null;
-    }
+    console.log(record)
+    // if (user.role == "DOCTOR") {
+    //     record = await req.db.collection('records').findOne({ email: p_email, 'doctoer.email': req.params.user_email })
+    // }
+    // else if (req.params.user_email == req.params.p_email) {
+    //     record = await req.db.collection('records').findOne({ email: req.params.user_email })
+    // }
+    // else {
+    //     record = null;
+    // }
 
     if (!record) {
         res.json({ message: "No record found!" })

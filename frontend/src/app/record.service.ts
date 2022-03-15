@@ -37,11 +37,8 @@ export class RecordService {
   }
 
   getRecordByPatientEmail(userEmail: string, patientEmail: string) {
-    this.http.get('http://localhost:3000/api/records/user/' + userEmail + '/record/' + patientEmail)
-      .pipe(map((data: any) => {
-        if (data) return data
-        else return null
-      }))
+    return this.http.get('http://localhost:3000/api/records/user/' + userEmail + '/record/' + patientEmail)
+    
   }
 
   getPatientRecordsForDoctor(docEmail: string) {
