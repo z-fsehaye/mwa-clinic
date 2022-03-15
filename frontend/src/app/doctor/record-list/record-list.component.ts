@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RecordService } from 'src/app/record.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { RecordService } from 'src/app/record.service';
 export class RecordListComponent implements OnInit {
   recordList : any = [];
 
-  constructor(private recordService: RecordService) {
+  constructor(private recordService: RecordService, private router : Router) {
     let docEmail: any = localStorage.getItem('userEmail')
     this.recordService.getPatientRecordsForDoctor(docEmail).subscribe((data:any) => {
       this.recordList = data
@@ -19,6 +20,7 @@ export class RecordListComponent implements OnInit {
   ngOnInit(): void {
   }
   patientRecord(x:any){
+    this.router.navigate(['doctor/list-records/record', x])
 
   }
   updateRecord(x:any){

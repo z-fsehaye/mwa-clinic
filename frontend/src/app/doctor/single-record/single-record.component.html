@@ -7,12 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <p>Full name</p>
-    <p>Address</p>
-    <p>Date of Birth</p>
-    <p>Email</p>
-    <p>Gender</p>
-    <p>Doctor assigned : [name, email]
+    <p>Full name : {{record.patientInfo.fullname}}</p>
+    <p>Address : {{record.patientInfo.address}}</p>
+    <p>Date of Birth : {{record.patientInfo.dob}}</p>
+    <p>Email : {{record.patientInfo.email}}</p>
+    <p>Gender : {{record.patientInfo.gen}}</p>
+    <p>Doctor assigned :
+        <span>Doctor Name: {{record.patientInfo.doctor.doctorName}}</span> <br>
+        <span>Doctor email: {{record.patientInfo.doctor.doctorEmail}}</span>
     </p>
     <h3>Visits</h3>
 
