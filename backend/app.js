@@ -36,14 +36,14 @@ app.use((req, res, next) => {
 })
 
 app.use('/api/users', usersRouter);
-// app.use('/api/records', async (req, res, next) => {
-//     let token = req.headers['token'];
-//     if(!auth.isTokenValid(token)){
-//         return res.json({message : "User not signed in. Please singin to access this page."})
-//     }
-//     next();
-// })
-// app.use('/api/records', recordsRouter)
+app.use('/api/records', async (req, res, next) => {
+    let token = req.headers['token'];
+    if(!auth.isTokenValid(token)){
+        return res.json({message : "User not signed in. Please singin to access this page."})
+    }
+    next();
+})
+app.use('/api/records', recordsRouter)
 
 app.listen(3000, ()=>console.log('Listening to port 3000'))
 
