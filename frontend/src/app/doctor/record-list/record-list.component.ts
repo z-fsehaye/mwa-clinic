@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RecordService } from 'src/app/record.service';
 
 @Component({
   selector: 'app-record-list',
@@ -6,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./record-list.component.css']
 })
 export class RecordListComponent implements OnInit {
-  recordList : string [] = [];
+  recordList : any = [];
 
-  constructor() { }
+  constructor(private recordService: RecordService) {
+    let docEmail: any = localStorage.getItem('userEmail')
+    this.recordService.getPatientRecordsForDoctor(docEmail).subscribe((data:any) => {
+      this.recordList = data
+    })
+  }
 
   ngOnInit(): void {
   }

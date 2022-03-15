@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RecordService } from 'src/app/record.service';
 
 @Component({
   selector: 'app-visit-form',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class VisitFormComponent implements OnInit {
   visitForm : FormGroup
   
-  constructor(private formBuilder : FormBuilder, private router : Router) {
+  constructor(private formBuilder : FormBuilder, private record: RecordService, private router : Router) {
     this.visitForm = formBuilder.group({
       'date': ['', [Validators.required]],
       'prescription': ['', [Validators.required]],
@@ -25,7 +26,9 @@ export class VisitFormComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
   onSubmit(){
-
+    this.record.addRecord(this.visitForm.value)
+    this.router.navigate(['/doctor'])
+    
   }
  
   }

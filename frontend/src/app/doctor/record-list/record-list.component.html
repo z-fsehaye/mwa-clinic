@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <table class="table table-striped">
+    <table class="table">
         <tr>
             <th scope="col">Full Name</th>
             <th scope="col">Email</th>
@@ -20,11 +20,11 @@
         </tr>
 
         <tr *ngFor="let record of recordList">
-            <td>{{record}}</td>
-            <td>{{record}}</td>
-            <td>{{record}}</td>
-            <td>{{record}}</td>
-            <td><button (click)="patientRecord(record)">Open Record</button></td>
+            <td>{{record.patientInfo.fullname}}</td>
+            <td>{{record.patientInfo.email}}</td>
+            <td>{{record.patientInfo.gen}}</td>
+            <td>{{record.patientInfo.dob}}</td>
+            <td><button (click)="patientRecord(record.patientInfo.email)">Open Record</button></td>
             <td><button (click)="updateRecord(record)">Update Record</button></td>
         </tr>
 
