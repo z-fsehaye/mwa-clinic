@@ -10,13 +10,13 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     AboutUsComponent,
     LoginComponent,
-    SignupComponent,
-    
+    SignupComponent
   ],
   imports: [
     BrowserModule,
