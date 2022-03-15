@@ -30,6 +30,9 @@ export class LoginComponent implements OnInit {
     else if (localStorage.getItem('userRole') == 'DOCTOR') {
       this.router.navigate(['doctor'])
     }
+    else{
+      this.router.navigate([''])
+    }
 
   }
 

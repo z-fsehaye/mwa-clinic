@@ -1,12 +1,11 @@
-require('dotenv').config()
 const bcrypt = require('bcrypt')
 const auth = require('../security/auth')
 
 
 module.exports.signup = (async (req, res, next) => {
-    try {
+    
         const user = req.body
-        const hashedPass = await bcrypt.hash(password, 10)
+        const hashedPass = await bcrypt.hash(user.password, 10)
         user.password = hashedPass
         req.db.collection("users").insertOne(user)
         const token = auth.generateToken(user)
@@ -17,13 +16,12 @@ module.exports.signup = (async (req, res, next) => {
             "userFullname" : user.fullname
         }
         res.status(200).json(response)
-    }
-    catch {
-        res.status(204).json("Try again later")
-    }
+  
+        // res.status(204).json("Try again later")
 })
 module.exports.login = (async (req, res, next) => {
     let user = await req.db.collection("users").findOne({ email: req.body.email });
+    console.log(user)
     
     if (!user) {
         
@@ -32,6 +30,7 @@ module.exports.login = (async (req, res, next) => {
     }
 
     const match = await bcrypt.compare(req.body.password, user.password);
+    console.log(match)
 
     if (match) {
         const token = auth.generateToken(user)
