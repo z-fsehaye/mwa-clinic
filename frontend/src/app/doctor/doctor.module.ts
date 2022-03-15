@@ -22,8 +22,7 @@ import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
     BillFormComponent,
     SingleVisitComponent,
     SingleBillComponent,
-    
-    
+    DoctorHomeComponent 
   ],
   imports: [
     CommonModule,
