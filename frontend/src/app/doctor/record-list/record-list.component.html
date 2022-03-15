@@ -20,7 +20,7 @@
         </tr>
 
         <tr *ngFor="let record of recordList">
-            <td>{{record}</td>
+            <td>{{record}}</td>
             <td>{{record}}</td>
             <td>{{record}}</td>
             <td>{{record}}</td>
@@ -28,7 +28,9 @@
             <td><button (click)="updateRecord(record)">Update Record</button></td>
         </tr>
 
+    
+
     </table>
 </body>
-
+    <a [routerLink]="['record']">Record</a>
 </html>

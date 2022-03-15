@@ -1,1 +1,32 @@
-<p>single-record works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Full name</p>
+    <p>Address</p>
+    <p>Date of Birth</p>
+    <p>Email</p>
+    <p>Gender</p>
+    <p>Doctor assigned : [name, email]
+    </p>
+    <h3>Visits</h3>
+
+    <div>
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Visit reason</th>
+            </tr>
+            <tr *ngFor="let visit of visits">
+                <td>{{visit}}</td>
+                <td>{{visit}}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

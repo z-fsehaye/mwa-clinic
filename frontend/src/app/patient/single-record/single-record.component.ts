@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./single-record.component.css']
 })
 export class SingleRecordComponent implements OnInit {
-
+visits : string [] = []
   constructor() { }
 
   ngOnInit(): void {
