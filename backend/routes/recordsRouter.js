@@ -11,7 +11,7 @@ router.get('/user/:user_email/record/:p_email', recordsController.getRecordByPat
 
 router.get('/doctor/:doc_email', recordsController.getPatientRecordsForDoctor)
 
-router.get('/user/:user_email/record/:p_email/visit/:visit_id', recordsController)
+// router.get('/user/:user_email/record/:p_email/visit/:visit_id', recordsController.)
 
 
 module.exports = router;
