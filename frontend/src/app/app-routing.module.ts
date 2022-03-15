@@ -7,12 +7,16 @@ import { PatientRoleGuard } from './patient-role.guard';
 import { SignupComponent } from './signup/signup.component';
 import { TokenGuard } from './token.guard';
 
+// canActivate: [TokenGuard, DoctorRoleGuard]
+// canActivate : [TokenGuard, PatientRoleGuard]
+
+
 const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'doctor', loadChildren: () => import('./doctor/doctor.module').then(module => module.DoctorModule), canActivate: [TokenGuard, DoctorRoleGuard] },
-  { path: 'patient', loadChildren: () => import('./patient/patient.module').then(module => module.PatientModule), canActivate : [TokenGuard, PatientRoleGuard] }
+  { path: 'doctor', loadChildren: () => import('./doctor/doctor.module').then(module => module.DoctorModule) },
+  { path: 'patient', loadChildren: () => import('./patient/patient.module').then(module => module.PatientModule) }
 ];
 
 @NgModule({
