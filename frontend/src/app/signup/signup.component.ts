@@ -27,15 +27,5 @@ export class SignupComponent {
   }
   onSignup() {
     this.userService.signup(this.signupForm.value)
-    
-    if (this.signupForm.value.role == 'PATEINT') {
-      this.router.navigate(['/patient'])
-    }
-    else if (this.signupForm.value.role == 'DOCTOR') {
-      this.router.navigate(['/doctor'])
-    }
-    else{
-      this.router.navigate([''])
-    }
   }
 }

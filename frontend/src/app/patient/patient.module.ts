@@ -18,7 +18,6 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RouterModule.forChild([
-      // {path : 'add-record', component : RecordFormComponent}
       {path : "", component : SingleRecordComponent}
     ]),
     ReactiveFormsModule
