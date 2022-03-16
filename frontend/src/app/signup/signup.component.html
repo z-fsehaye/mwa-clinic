@@ -1,3 +1,5 @@
+<h2>Signup Form</h2>
+<br>
 <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
   <div class="form-group">
     <label for="fullname">Full Name</label>
@@ -40,7 +42,7 @@
 
   <div class="form-group">
     <label for="password">Password</label>
-    <input type="text" class="form-control" id="password" formControlName="password">
+    <input type="password" class="form-control" id="password" formControlName="password">
     <div
       *ngIf="signupForm.get('password')?.invalid && (signupForm.get('password')?.dirty || signupForm.get('password')?.touched)"
       class="alert alert-danger">

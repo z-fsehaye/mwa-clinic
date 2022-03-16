@@ -50,11 +50,7 @@ module.exports.getRecordByPatientEmail = async (req, res, next) => {
     let user = await req.db.collection('users').findOne({ email: req.params.user_email })
 
     let record;
-    // record = await req.db.collection('records').findOne({ 'patientInfo.email': req.params.p_email, 'patientInfo.doctor.doctorEmail': req.params.user_email })
-
-    // console.log(record)
-    console.log(req.params.user_email)
-    console.log(req.params.p_email)
+    
     if (user.role == "DOCTOR") {
         record = await req.db.collection('records').findOne({ 'patientInfo.email': req.params.p_email, 'patientInfo.doctor.doctorEmail': req.params.user_email })
     }

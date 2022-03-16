@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
 
 @Injectable({
@@ -7,7 +8,7 @@ import { map, Observable, of } from 'rxjs';
 })
 export class UserService {
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, private router :Router) { }
 
   verifyEmail(email: string): Observable<any> {
     if (email) {
@@ -22,6 +23,16 @@ export class UserService {
       localStorage.setItem('userEmail', data.userEmail.toString())
       localStorage.setItem('userRole', data.userRole.toString())
       localStorage.setItem('userFullname', data.userFullname.toString())
+
+      if (localStorage.getItem('userRole') == 'PATIENT') {
+        this.router.navigate(['home'])
+      }
+      else if (localStorage.getItem('userRole') == 'DOCTOR') {
+        this.router.navigate(['doctor'])
+      }
+      else{
+        this.router.navigate([''])
+      }
     })
   }
 
@@ -31,6 +42,16 @@ export class UserService {
       localStorage.setItem('userEmail', data.userEmail.toString())
       localStorage.setItem('userRole', data.userRole.toString())
       localStorage.setItem('userFullname', data.userFullname.toString())
+
+      if (localStorage.getItem('userRole') == 'PATIENT') {
+        this.router.navigate(['home'])
+      }
+      else if (localStorage.getItem('userRole') == 'DOCTOR') {
+        this.router.navigate(['doctor'])
+      }
+      else{
+        this.router.navigate([''])
+      }
     })
   }
 

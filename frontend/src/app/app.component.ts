@@ -16,6 +16,23 @@ export class AppComponent {
     localStorage.removeItem('userEmail')
     localStorage.removeItem('userRole')
     localStorage.removeItem('userFullname')
-    this.router.navigate(['about-us'])
+    this.router.navigate(['home'])
+  }
+
+  isLoggedIn(){
+    if(localStorage.getItem('token')) return true;
+    else return false;
+  }
+
+  isDoctor(){
+    let doctor = localStorage.getItem('userRole')
+    if(doctor && doctor == 'DOCTOR') return true;
+    else return false;
+  }
+
+  isPatient(){
+    let doctor = localStorage.getItem('userRole')
+    if(doctor && doctor == 'PATIENT') return true;
+    else return false;
   }
 }

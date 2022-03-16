@@ -24,16 +24,6 @@ export class LoginComponent implements OnInit {
   }
   onLogin() {
     this.userService.login(this.loginForm.value)
-    if (localStorage.getItem('userRole') == 'PATIENT') {
-      this.router.navigate(['patient'])
-    }
-    else if (localStorage.getItem('userRole') == 'DOCTOR') {
-      this.router.navigate(['doctor'])
-    }
-    else{
-      this.router.navigate([''])
-    }
-
   }
 
 }

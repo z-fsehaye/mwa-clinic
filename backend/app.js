@@ -5,8 +5,12 @@ const auth = require('./security/auth')
 const usersRouter = require('./routes/usersRouter')
 const recordsRouter = require('./routes/recordsRouter')
 const { MongoClient } = require('mongodb');
+const authConf = require('dotenv')
 
-const client = new MongoClient('mongodb://localhost:27017', {
+authConf.config();
+
+const dbUrl = 'mongodb+srv://kb:' + process.env.DB_PASSWORD + '@cluster0.2dgkf.mongodb.net/MwaClinic?retryWrites=true&w=majority'
+const client = new MongoClient(dbUrl, {
     useNewUrlParser : true,
     useUnifiedTopology : true,
 })
