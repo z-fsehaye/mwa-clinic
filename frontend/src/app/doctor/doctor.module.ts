@@ -31,7 +31,7 @@ import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
     RouterModule.forChild([
       {path : '', component : DoctorHomeComponent},
       {path : 'add-record',component : RecordFormComponent},
-      {path : 'add-visit',component : VisitFormComponent},
+      {path : 'patient-record/:pEmail/add-visit',component : VisitFormComponent},
       {path : 'list-records',component : RecordListComponent},
       {path : 'list-records/record/:email', component : SingleRecordComponent}
       
