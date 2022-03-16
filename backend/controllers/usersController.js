@@ -21,7 +21,6 @@ module.exports.signup = (async (req, res, next) => {
 })
 module.exports.login = (async (req, res, next) => {
     let user = await req.db.collection("users").findOne({ email: req.body.email });
-    console.log(user)
     
     if (!user) {
         
@@ -30,7 +29,6 @@ module.exports.login = (async (req, res, next) => {
     }
 
     const match = await bcrypt.compare(req.body.password, user.password);
-    console.log(match)
 
     if (match) {
         const token = auth.generateToken(user)

@@ -29,11 +29,12 @@ export class RecordService {
       }))
   }
 
-  addVisit(visit: any) {
-    this.http.post('http://localhost:3000/api/records/record' + visit.patientEmail + '/new-visit', visit).pipe(map((data: any) => {
-      if (data) return data
-      else return null
-    }))
+  addVisit(visit: any, pEamil:any) {
+    let pVisit;
+    this.http.post('http://localhost:3000/api/records/record/' + pEamil + '/new-visit', visit).subscribe((data:any) => {
+      pVisit = data
+    })
+    return pVisit
   }
 
   getRecordByPatientEmail(userEmail: string, patientEmail: string) {
