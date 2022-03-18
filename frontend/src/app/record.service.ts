@@ -10,15 +10,7 @@ export class RecordService {
   constructor(private http: HttpClient) { }
 
   addRecord(record: any) {
-    let pRec;
-    this.http.post('http://localhost:3000/api/records/new-record', record).subscribe((data: any) => {
-      pRec = data
-    })
-    return pRec
-    // this.http.post('http://localhost:3000/api/records/new-record', record).pipe(map((data: any) => {
-    //   if (data) return data
-    //   else return null
-    // }))
+    return this.http.post('http://localhost:3000/api/records', record)
   }
 
   updateRecord(docEmail: string, patientEmail: string, record: any) {

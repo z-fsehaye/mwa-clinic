@@ -13,10 +13,8 @@ export class RecordFormComponent  {
   gender: string[] = [
     "MALE", "FEMALE"
   ]
-  recordForm : FormGroup
-  public docEmail: any = localStorage.getItem('userEmail')
-  public docName: any = localStorage.getItem('userFullname')
-  public visits: any = []
+  recordForm : FormGroup;
+  isSuccess : boolean = true;
 
   
 
@@ -27,8 +25,8 @@ export class RecordFormComponent  {
       'email': ['', [Validators.required, Validators.email]],
       'dob': ['', [Validators.required]],
       'gen': ['PATIENT'],
-      'doctorName': [this.docName],
-      'doctorEmail': [this.docEmail]
+      'doctorName': [''],
+      'doctorEmail': ['']
     })
 
   }
@@ -36,7 +34,14 @@ export class RecordFormComponent  {
   ngOnInit(): void {
   }
   onSubmit(){
-    this.recordService.addRecord(this.recordForm.value)
+    this.recordService.addRecord(this.recordForm.value).subscribe((data:any) => {
+      if(data.success){
+        this.router.navigate(['/doctor'])
+      }
+      else{
+        this.isSuccess = false;
+      }
+    })
     this.router.navigate(['/doctor'])
   }
 

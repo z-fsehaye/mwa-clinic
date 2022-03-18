@@ -2,6 +2,7 @@ const auth = require('../security/auth')
 
 module.exports.addRecord = async (req, res, next) => {
     let requestRecord = req.body;
+    let user = auth.getLoggedInUser(req.headers['token'])
 
     let record = {
         'patientInfo': {
@@ -10,14 +11,19 @@ module.exports.addRecord = async (req, res, next) => {
             'email': requestRecord.email,
             'dob': requestRecord.dob,
             'gen': requestRecord.gen,
-            'doctor': { 'doctorName': requestRecord.doctorName, 'doctorEmail': requestRecord.doctorEmail }
+            'doctor': { 'doctorName': user.fullname, 'doctorEmail': user.email }
         },
         'visits': []
     }
 
     let result = await req.db.collection('records').insertOne(record);
-    let persistedRecord = await req.db.collection('records').findOne({ _id: result.insertId })
-    res.json(persistedRecord);
+    if(result.acknowledged){
+        res.json({success : true})
+    }
+    else{
+        res.json({success : false})
+    }
+    
 }
 
 module.exports.updateRecord = async (req, res, next) => {

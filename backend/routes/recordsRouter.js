@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const recordsController = require('../controllers/recordsController')
 
-router.post('/new-record',recordsController.addRecord)
+router.post('/',recordsController.addRecord)
 
 router.put('/doctor/:doc_email/update-record/:p_email', recordsController.updateRecord)
 
