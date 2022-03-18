@@ -1,4 +1,7 @@
-<form [formGroup]="recordForm" (ngSubmit)="onSubmit()">
+<h2>Add Patient</h2>
+<div *ngIf="isSuccess">
+  <br><br>
+  <form [formGroup]="recordForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="fullname">Full Name</label>
       <input type="text" class="form-control" id="fullname" formControlName="fullname">
@@ -54,13 +57,16 @@
       </select>
     </div>
     <div>
-        <input type="hidden" class="form-control" id="doctorName" formControlName="doctorName" [value]="docName">
+        <input type="hidden" class="form-control" id="doctorName" formControlName="doctorName" >
     </div>
     <div>
-        <input type="hidden" class="form-control" id="doctorEmail" formControlName="doctorEmail" [value]="docEmail">
+        <input type="hidden" class="form-control" id="doctorEmail" formControlName="doctorEmail" >
     </div>
   
     <button type="submit" class="btn btn-primary" [disabled]="!recordForm.valid">Submit</button>
   
   </form>
-  
+</div>
+<div *ngIf="!isSuccess">
+  <p>Something went wrong! Try again, patient was not added.</p>
+</div>
