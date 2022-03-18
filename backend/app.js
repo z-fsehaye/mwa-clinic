@@ -10,7 +10,7 @@ const authConf = require('dotenv')
 authConf.config();
 
 const dbUrl = 'mongodb+srv://kb:' + process.env.DB_PASSWORD + '@cluster0.2dgkf.mongodb.net/MwaClinic?retryWrites=true&w=majority'
-const client = new MongoClient(dbUrl, {
+const client = new MongoClient('mongodb://localhost:27017', {
     useNewUrlParser : true,
     useUnifiedTopology : true,
 })

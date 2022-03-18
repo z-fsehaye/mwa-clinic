@@ -1,3 +1,5 @@
+const auth = require('../security/auth')
+
 module.exports.addRecord = async (req, res, next) => {
     let requestRecord = req.body;
 
@@ -47,19 +49,21 @@ module.exports.addVisit = async (req, res, next) => {
 }
 
 module.exports.getRecordByPatientEmail = async (req, res, next) => {
-    let user = await req.db.collection('users').findOne({ email: req.params.user_email })
 
+    let token = req.headers['token']
+    let loggedInUser = auth.getLoggedInUser(token);
     let record;
-    
-    if (user.role == "DOCTOR") {
-        record = await req.db.collection('records').findOne({ 'patientInfo.email': req.params.p_email, 'patientInfo.doctor.doctorEmail': req.params.user_email })
+
+    if(loggedInUser.role == 'DOCTOR'){
+        record = await req.db.collection('records').findOne({ 'patientInfo.email': req.params.p_email, 'patientInfo.doctor.doctorEmail': loggedInUser.email })
     }
-    else if (req.params.user_email == req.params.p_email) {
-        record = await req.db.collection('records').findOne({ 'patientInfo.email': req.params.user_email })
+    else if(loggedInUser.role =='PATIENT' && loggedInUser.email == req.params.p_email){
+        record = await req.db.collection('records').findOne({'patientInfo.email': req.params.p_email})
     }
     else {
-        record = null;
+        record = null
     }
+
 
     if (!record) {
         res.json({ message: "No record found!" })

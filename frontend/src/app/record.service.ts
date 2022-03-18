@@ -38,7 +38,7 @@ export class RecordService {
   }
 
   getRecordByPatientEmail(userEmail: string, patientEmail: string) {
-    return this.http.get('http://localhost:3000/api/records/user/' + userEmail + '/record/' + patientEmail)
+    return this.http.get('http://localhost:3000/api/records/record/' + patientEmail)
     
   }
 
