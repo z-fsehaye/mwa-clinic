@@ -35,9 +35,7 @@ module.exports.login = (async (req, res, next) => {
         // res.header({token})
         res.status(200).json({
             "token": token,
-            "userEmail": user.email,
-            "userRole": user.role,
-            "userFullname" : user.fullname
+            "userRole": user.role
         })
     }
     else {

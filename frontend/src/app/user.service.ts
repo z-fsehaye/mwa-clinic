@@ -39,9 +39,7 @@ export class UserService {
   login(user : any){
     return this.http.post('http://localhost:3000/api/users/login', user).subscribe((data:any) => {
       localStorage.setItem('token', data.token.toString())
-      localStorage.setItem('userEmail', data.userEmail.toString())
       localStorage.setItem('userRole', data.userRole.toString())
-      localStorage.setItem('userFullname', data.userFullname.toString())
 
       if (localStorage.getItem('userRole') == 'PATIENT') {
         this.router.navigate(['home'])
