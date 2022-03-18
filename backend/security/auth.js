@@ -17,3 +17,9 @@ module.exports.isTokenValid = function (token){
         return false;
     }
 }
+
+module.exports.getLoggedInUser = function(token){
+    if(!token) return null;
+
+    return jwt.verify(token, process.env.SECRET_KEY)
+}

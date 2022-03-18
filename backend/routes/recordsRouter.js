@@ -7,7 +7,7 @@ router.put('/doctor/:doc_email/update-record/:p_email', recordsController.update
 
 router.post('/record/:p_email/new-visit', recordsController.addVisit)
 
-router.get('/user/:user_email/record/:p_email', recordsController.getRecordByPatientEmail)
+router.get('/record/:p_email', recordsController.getRecordByPatientEmail)
 
 router.get('/doctor/:doc_email', recordsController.getPatientRecordsForDoctor)
 
