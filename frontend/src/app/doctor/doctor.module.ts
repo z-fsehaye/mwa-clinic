@@ -33,7 +33,9 @@ import { DoctorHomeComponent } from './doctor-home/doctor-home.component';
       {path : 'add-record',component : RecordFormComponent},
       {path : 'patient-record/:pEmail/add-visit',component : VisitFormComponent},
       {path : 'list-records',component : RecordListComponent},
-      {path : 'list-records/record/:email', component : SingleRecordComponent}
+      {path : 'list-records/record/:email', component : SingleRecordComponent},
+      {path : 'list-records/record/update/:email', component : RecordFormComponent},
+      {path: 'patient-record/:pEmail/visit/:visitId', component:SingleVisitComponent}
       
     ]),
     ReactiveFormsModule

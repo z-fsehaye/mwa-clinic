@@ -10,16 +10,16 @@ import { RecordService } from 'src/app/record.service';
 })
 export class VisitFormComponent {
   visitForm : FormGroup
+  isSuccess : boolean = true;
   patientEmail :any
   
-  constructor(private formBuilder : FormBuilder, private record: RecordService, private router : Router, private route: ActivatedRoute) {
+  constructor(private formBuilder : FormBuilder, private recordService: RecordService, private router : Router, private route: ActivatedRoute) {
     this.visitForm = formBuilder.group({
+      '_id': [''],
       'date': ['', [Validators.required]],
       'prescription': ['', [Validators.required]],
       'reason': ['', [Validators.required]],
-      'diagnosis': ['', [Validators.required]],
-      'patientEmail': [''],
-  
+      'diagnosis': ['', [Validators.required]]  
     })
 
     this.route.paramMap.subscribe((params: any) => {
@@ -29,9 +29,14 @@ export class VisitFormComponent {
 
   
   onAddVisit(){
-    this.record.addVisit(this.visitForm.value, this.patientEmail)
-    this.router.navigate(['/doctor'])
-    
+    this.recordService.addVisit(this.visitForm.value, this.patientEmail).subscribe((data:any) => {
+      if(data.acknowledged){
+        this.router.navigate(['/doctor'])
+      }
+      else{
+        this.isSuccess = false
+      }
+    })    
   }
  
   }

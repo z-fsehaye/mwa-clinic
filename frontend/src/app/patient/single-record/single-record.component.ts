@@ -11,26 +11,20 @@ import { RecordService } from 'src/app/record.service';
 export class SingleRecordComponent implements OnInit {
   visits: any = []
   record: any = {}
-  patientEmail: any = ""
+  patientEmail: any = "patient"
   constructor(private router: Router, private recordService: RecordService, private route: ActivatedRoute) {
-    let userEmail: any = localStorage.getItem('userEmail')
-    this.patientEmail = localStorage.getItem('userEmail')
-    this.recordService.getRecordByPatientEmail(userEmail, this.patientEmail).subscribe((data:any) => {
+    this.recordService.getRecordByPatientEmail(this.patientEmail).subscribe((data:any) => {
       this.record = data;
       this.visits = data.visits;
-    })
-    // this.route.paramMap.pipe(
-    //   mergeMap((params: any) => this.recordService.getRecordByPatientEmail(userEmail, params.get('email'))
-    //   ))
-    //   .subscribe((data: any) => {
-    //     this.record = data
-    //     this.visits = data.visits
-    //   })
-
-    
+    })    
   }
 
   ngOnInit(): void {
+  }
+
+  patientVisit(visitId: any){
+    console.log(visitId)
+    this.router.navigate(['patient', 'visit', visitId])
   }
 
 }

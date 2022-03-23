@@ -1,4 +1,6 @@
 const auth = require('../security/auth')
+const { ObjectId } = require('mongodb');
+const { ObjectID } = require('bson');
 
 module.exports.addRecord = async (req, res, next) => {
     let requestRecord = req.body;
@@ -17,18 +19,21 @@ module.exports.addRecord = async (req, res, next) => {
     }
 
     let result = await req.db.collection('records').insertOne(record);
-    if(result.acknowledged){
-        res.json({success : true})
+    if (result.acknowledged) {
+        res.json({ success: true })
     }
-    else{
-        res.json({success : false})
+    else {
+        res.json({ success: false })
     }
-    
+
 }
 
 module.exports.updateRecord = async (req, res, next) => {
 
+    let token = req.headers['token']
+    let loggedInUser = auth.getLoggedInUser(token);
     let requestRecord = req.body;
+
 
     let record = {
         'patientInfo': {
@@ -39,19 +44,31 @@ module.exports.updateRecord = async (req, res, next) => {
             'gen': requestRecord.gen,
             'doctor': { 'doctorName': requestRecord.doctorName, 'doctorEmail': requestRecord.doctorEmail }
         },
-        'visits': []
+        'visits': requestRecord.visits
     }
+    console.log(record)
 
     let result = await req.db.collection('records')
-        .updateOne({ email: req.params.p_email, 'doctor.email': req.prams.doc_email }, req.body);
-
-    let persistedRecord = await req.db.collection('records').findOne({ _id: result.insertId })
-    res.json(persistedRecord);
+        .updateOne({ 'patientInfo.email': req.params.p_email, 'patientInfo.doctor.doctorEmail': loggedInUser.email }, { $set: { 'patientInfo': record.patientInfo, 'visits': record.visits } });
+    console.log(result)
+    if (result.modifiedCount == 1) {
+        res.json({ success: true })
+    }
+    else {
+        res.json({ success: false })
+    }
 }
 
 module.exports.addVisit = async (req, res, next) => {
-    await req.db.collection('records').updateOne({ 'patientInfo.email': req.params.p_email }, { $push: { visits: req.body } })
-    res.json(req.body._id);
+    let visit = {
+        _id: ObjectId(),
+        date: req.body.date,
+        prescription: req.body.prescription,
+        reason: req.body.reason,
+        diagnosis: req.body.diagnosis
+    }
+    let result = await req.db.collection('records').updateOne({ 'patientInfo.email': req.params.p_email }, { $push: { visits: visit } })
+    res.json(result);
 }
 
 module.exports.getRecordByPatientEmail = async (req, res, next) => {
@@ -60,11 +77,11 @@ module.exports.getRecordByPatientEmail = async (req, res, next) => {
     let loggedInUser = auth.getLoggedInUser(token);
     let record;
 
-    if(loggedInUser.role == 'DOCTOR'){
+    if (loggedInUser.role == 'DOCTOR') {
         record = await req.db.collection('records').findOne({ 'patientInfo.email': req.params.p_email, 'patientInfo.doctor.doctorEmail': loggedInUser.email })
     }
-    else if(loggedInUser.role =='PATIENT' && loggedInUser.email == req.params.p_email){
-        record = await req.db.collection('records').findOne({'patientInfo.email': req.params.p_email})
+    else if (loggedInUser.role == 'PATIENT') {
+        record = await req.db.collection('records').findOne({ 'patientInfo.email': loggedInUser.email })
     }
     else {
         record = null
@@ -80,7 +97,8 @@ module.exports.getRecordByPatientEmail = async (req, res, next) => {
 }
 
 module.exports.getPatientRecordsForDoctor = async (req, res, next) => {
-    let records = await req.db.collection('records').find({ 'patientInfo.doctor.doctorEmail': req.params.doc_email }).toArray();
+    let user = auth.getLoggedInUser(req.headers['token'])
+    let records = await req.db.collection('records').find({ 'patientInfo.doctor.doctorEmail': user.email }).toArray();
     if (records) {
         res.json(records)
     }
@@ -90,15 +108,23 @@ module.exports.getPatientRecordsForDoctor = async (req, res, next) => {
 }
 
 module.exports.getPatientVisitById = async (req, res, next) => {
-    let user = await req.db.collection('users').findOne({ email: req.params.user_email })
+    let token = req.headers['token']
+    let loggedInUser = auth.getLoggedInUser(token);
 
     let visit;
 
-    if (user.role == "DOCTOR") {
-        visit = req.db.collection('records').findOne({ email: req.params.p_email, visits: { $elemMatch: { _id: req.params.visit_id } } })
+    if (loggedInUser.role == "DOCTOR") {
+        visit = await req.db.collection('records').findOne({
+            'patientInfo.email': req.params.p_email,
+            'patientInfo.doctor.doctorEmail': loggedInUser.email,
+            'visits._id': ObjectID(req.params.visit_id)
+        }, { projection: { _id: 0, 'visits.$': 1 } })
     }
-    else if (req.params.user_email == req.params.p_email) {
-        visit = req.db.collection('records').findOne({ email: req.params.user_email, visits: { $elemMatch: { _id: req.params.visit_id } } })
+    else if (loggedInUser.role == 'PATIENT') {
+        visit = await req.db.collection('records').findOne({
+            'patientInfo.email': loggedInUser.email,
+            'visits._id': ObjectID(req.params.visit_id)
+        }, { projection: { _id: 0, 'visits.$': 1 } })
     }
     else {
         visit = null;
@@ -108,6 +134,7 @@ module.exports.getPatientVisitById = async (req, res, next) => {
         res.json({ message: "No visit found!" })
     }
     else {
+        console.log('check!!!! ', visit)
         res.json(visit)
     }
 }

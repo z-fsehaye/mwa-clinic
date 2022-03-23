@@ -16,12 +16,12 @@
         <tr>
             <th>Date</th>
             <th>Visit reason</th>
-            <!-- <th></th> -->
+            <th></th>
         </tr>
         <tr *ngFor="let visit of visits">
             <td>{{visit.date}}</td>
             <td>{{visit.reason}}</td>
-            <!-- <td><button (click)="patientVisit()">Open Visit</button></td> -->
+            <td><button (click)="patientVisit(visit._id)">Open Visit</button></td>
         </tr>
     </table>
     <button (click)="addVisit()">Add Visit</button>

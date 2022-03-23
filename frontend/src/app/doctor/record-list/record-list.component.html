@@ -16,6 +16,6 @@
         <td>{{record.patientInfo.gen}}</td>
         <td>{{record.patientInfo.dob}}</td>
         <td><button (click)="patientRecord(record.patientInfo.email)">Open Record</button></td>
-        <td><button (click)="updateRecord(record)">Update Record</button></td>
+        <td><button (click)="updateRecord(record.patientInfo.email)">Update Record</button></td>
     </tr>
 </table>

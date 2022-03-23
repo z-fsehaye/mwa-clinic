@@ -18,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RouterModule.forChild([
-      {path : "", component : SingleRecordComponent}
+      {path : "", component : SingleRecordComponent},
+      {path: 'visit/:visitId', component: SingleVisitComponent}
     ]),
     ReactiveFormsModule
   ]

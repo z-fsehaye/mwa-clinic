@@ -7,43 +7,38 @@ import { map } from 'rxjs';
 })
 export class RecordService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private client: HttpClient) { }
 
   addRecord(record: any) {
-    return this.http.post('http://localhost:3000/api/records', record)
+    return this.client.post('http://localhost:3000/api/records', record)
   }
 
-  updateRecord(docEmail: string, patientEmail: string, record: any) {
-    this.http.post('http://localhost:3000/api/records/doctor/' + docEmail + '/update-record/' + patientEmail, record)
-      .pipe(map((data: any) => {
-        if (data) return data
-        else return null
-      }))
+  updateRecord(patientEmail: string, record: any) {
+
+    return this.client.put('http://localhost:3000/api/records/record/' + patientEmail, record)
+
+    // this.client.post('http://localhost:3000/api/records/doctor/' + docEmail + '/update-record/' + patientEmail, record)
+    //   .pipe(map((data: any) => {
+    //     if (data) return data
+    //     else return null
+    //   }))
   }
 
   addVisit(visit: any, pEamil:any) {
-    let pVisit;
-    this.http.post('http://localhost:3000/api/records/record/' + pEamil + '/new-visit', visit).subscribe((data:any) => {
-      pVisit = data
-    })
-    return pVisit
+    return this.client.post('http://localhost:3000/api/records/record/' + pEamil + '/new-visit', visit)
   }
 
-  getRecordByPatientEmail(userEmail: string, patientEmail: string) {
-    return this.http.get('http://localhost:3000/api/records/record/' + patientEmail)
+  getRecordByPatientEmail(patientEmail: string) {
+    return this.client.get('http://localhost:3000/api/records/record/' + patientEmail)
     
   }
 
-  getPatientRecordsForDoctor(docEmail: string) {
-    return this.http.get('http://localhost:3000/api/records/doctor/' + docEmail)
+  getPatientRecordsForDoctor() {
+    return this.client.get('http://localhost:3000/api/records')
   }
 
-  getPatientVisitById(userEmail: string, patientEmail: string, visitId: string) {
-    this.http.get('http://localhost:3000/api/records/user/' + userEmail + '/record/' + patientEmail + '/visit/' + visitId)
-      .pipe(map((data: any) => {
-        if (data) return data
-        else return null
-      }))
+  getPatientVisitById(patientEmail: any, visitId: string) {
+    return this.client.get('http://localhost:3000/api/records/record/' + patientEmail + '/visit/' + visitId)
   }
 
 
