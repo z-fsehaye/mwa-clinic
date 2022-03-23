@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RecordService } from 'src/app/record.service';
 
 @Component({
   selector: 'app-single-visit',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SingleVisitComponent implements OnInit {
 
-  constructor() { }
+  visit: any = {}
+  visitId: any = ''
+  constructor(private router: Router, private recordService: RecordService, private route: ActivatedRoute) {
+    this.visitId = this.route.snapshot.params['visitId']
+    console.log('reqParam: ', this.visitId)
+    this.recordService.getPatientVisitById(null, this.visitId).subscribe((data: any) => {
+      console.log("visit data... ", data.visits[0])
+      this.visit = data.visits[0]
+    })
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
+  }
+
+  goBack(){
+    this.router.navigate([''])
   }
 
 }

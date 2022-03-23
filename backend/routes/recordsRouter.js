@@ -3,15 +3,15 @@ const recordsController = require('../controllers/recordsController')
 
 router.post('/',recordsController.addRecord)
 
-router.put('/doctor/:doc_email/update-record/:p_email', recordsController.updateRecord)
+router.put('/record/:p_email', recordsController.updateRecord)
 
 router.post('/record/:p_email/new-visit', recordsController.addVisit)
 
 router.get('/record/:p_email', recordsController.getRecordByPatientEmail)
 
-router.get('/doctor/:doc_email', recordsController.getPatientRecordsForDoctor)
+router.get('/', recordsController.getPatientRecordsForDoctor)
 
-router.get('/user/:user_email/record/:p_email/visit/:visit_id', recordsController.getPatientVisitById)
+router.get('/record/:p_email/visit/:visit_id', recordsController.getPatientVisitById)
 
 
 module.exports = router;

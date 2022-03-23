@@ -53,10 +53,4 @@ export class UserService {
     })
   }
 
-  // login(user : {}){
-  //   this.http.post('http://localhost:3000/api/users/login', user).pipe(map((data:any) => {
-  //     if(data)return data
-  //     else return null
-  //   }))
-  // }
 }

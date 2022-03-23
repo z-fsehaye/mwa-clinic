@@ -11,20 +11,23 @@ export class RecordListComponent implements OnInit {
   recordList : any = [];
 
   constructor(private recordService: RecordService, private router : Router) {
-    let docEmail: any = localStorage.getItem('userEmail')
-    this.recordService.getPatientRecordsForDoctor(docEmail).subscribe((data:any) => {
+
+    this.recordService.getPatientRecordsForDoctor().subscribe((data:any) => {
       this.recordList = data
+      console.log(data)
     })
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    
   }
-  patientRecord(x:any){
-    this.router.navigate(['doctor/list-records/record', x])
+
+  patientRecord(p_email:any){
+    this.router.navigate(['doctor/list-records/record', p_email])
 
   }
-  updateRecord(x:any){
-    
+  updateRecord(p_email:any){
+    this.router.navigate(['doctor/list-records/record/update', p_email])
   }
 
 }

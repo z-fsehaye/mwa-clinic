@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { first } from 'rxjs';
 import { RecordService } from 'src/app/record.service';
 
 @Component({
@@ -14,11 +15,13 @@ export class RecordFormComponent  {
     "MALE", "FEMALE"
   ]
   recordForm : FormGroup;
+  patientEmail: string = ""
   isSuccess : boolean = true;
+  isUpdateForm: boolean = false;
 
   
 
-  constructor(private formBuilder : FormBuilder, private recordService: RecordService, private router: Router) {
+  constructor(private formBuilder : FormBuilder, private recordService: RecordService, private router: Router, private route: ActivatedRoute) {
     this.recordForm = formBuilder.group({
       'fullname': ['', [Validators.required]],
       'address': ['', [Validators.required]],
@@ -29,20 +32,54 @@ export class RecordFormComponent  {
       'doctorEmail': ['']
     })
 
+    
+
   }
 
   ngOnInit(): void {
+    this.patientEmail = this.route.snapshot.params['email']
+    
+    if(this.patientEmail){
+
+      this.isUpdateForm = true;
+
+      this.recordService.getRecordByPatientEmail(this.patientEmail).pipe(first()).subscribe((data:any) => {
+
+        this.recordForm = this.formBuilder.group({
+          'fullname': [data.patientInfo['fullname'], [Validators.required]],
+          'address': [data.patientInfo['address'], [Validators.required]],
+          'email': [data.patientInfo['email'], [Validators.required, Validators.email]],
+          'dob': [data.patientInfo['dob'], [Validators.required]],
+          'gen': [data.patientInfo['gen']],
+          'doctorName': [data.patientInfo.doctor['doctorName']],
+          'doctorEmail': [data.patientInfo.doctor['doctorEmail']],
+          'visits': [data.visits]
+        })
+      })
+    }
   }
   onSubmit(){
-    this.recordService.addRecord(this.recordForm.value).subscribe((data:any) => {
-      if(data.success){
-        this.router.navigate(['/doctor'])
-      }
-      else{
-        this.isSuccess = false;
-      }
-    })
-    this.router.navigate(['/doctor'])
+    if(this.patientEmail){
+      this.recordService.updateRecord(this.patientEmail, this.recordForm.value).subscribe((data:any) => {
+        if(data.success){
+          this.router.navigate(['/doctor'])
+        }
+        else{
+          this.isSuccess = false;
+        }
+      })
+    }
+    else{
+      this.recordService.addRecord(this.recordForm.value).subscribe((data:any) => {
+        if(data.success){
+          this.router.navigate(['/doctor'])
+        }
+        else{
+          this.isSuccess = false;
+        }
+      })
+    }
+    
   }
 
 }

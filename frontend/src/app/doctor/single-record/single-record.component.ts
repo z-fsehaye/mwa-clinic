@@ -13,18 +13,22 @@ export class SingleRecordComponent implements OnInit {
   record: any = {}
   patientEmail: any = ""
   constructor(private router: Router, private recordService: RecordService, private route: ActivatedRoute) {
-    let userEmail: any = localStorage.getItem('userEmail')
-    this.route.paramMap.pipe(
-      mergeMap((params: any) => this.recordService.getRecordByPatientEmail(userEmail, params.get('email'))
-      ))
-      .subscribe((data: any) => {
-        this.record = data
-        this.visits = data.visits
-      })
-
-    this.route.paramMap.subscribe((params: any) => {
-      this.patientEmail = params.get('email')
+    this.patientEmail = this.route.snapshot.params['email'];
+    this.recordService.getRecordByPatientEmail(this.patientEmail).subscribe((data: any) => {
+      this.record = data;
+      this.visits = data.visits
     })
+    // this.route.paramMap.pipe(
+    //   mergeMap((params: any) => this.recordService.getRecordByPatientEmail(params.get('email'))
+    //   ))
+    //   .subscribe((data: any) => {
+    //     this.record = data
+    //     this.visits = data.visits
+    //   })
+
+    // this.route.paramMap.subscribe((params: any) => {
+    //   this.patientEmail = params.get('email')
+    // })
   }
 
   ngOnInit() {
@@ -33,6 +37,8 @@ export class SingleRecordComponent implements OnInit {
   addVisit() {
     this.router.navigate(['doctor', 'patient-record', this.patientEmail, 'add-visit'])
   }
-  patientVisit(){}
+  patientVisit(visitId: any) {
+    this.router.navigate(['doctor', 'patient-record', this.patientEmail, 'visit', visitId])
+  }
 
 }
