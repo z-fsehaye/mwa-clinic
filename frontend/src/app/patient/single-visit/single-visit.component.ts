@@ -15,7 +15,6 @@ export class SingleVisitComponent implements OnInit {
     this.visitId = this.route.snapshot.params['visitId']
     console.log('reqParam: ', this.visitId)
     this.recordService.getPatientVisitById(null, this.visitId).subscribe((data: any) => {
-      console.log("visit data... ", data.visits[0])
       this.visit = data.visits[0]
     })
   }

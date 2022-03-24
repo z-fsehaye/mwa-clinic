@@ -12,23 +12,13 @@ export class SingleRecordComponent implements OnInit {
   visits: any = []
   record: any = {}
   patientEmail: any = ""
+  isVisitOpen: boolean = false;
   constructor(private router: Router, private recordService: RecordService, private route: ActivatedRoute) {
     this.patientEmail = this.route.snapshot.params['email'];
     this.recordService.getRecordByPatientEmail(this.patientEmail).subscribe((data: any) => {
       this.record = data;
       this.visits = data.visits
     })
-    // this.route.paramMap.pipe(
-    //   mergeMap((params: any) => this.recordService.getRecordByPatientEmail(params.get('email'))
-    //   ))
-    //   .subscribe((data: any) => {
-    //     this.record = data
-    //     this.visits = data.visits
-    //   })
-
-    // this.route.paramMap.subscribe((params: any) => {
-    //   this.patientEmail = params.get('email')
-    // })
   }
 
   ngOnInit() {
@@ -39,6 +29,10 @@ export class SingleRecordComponent implements OnInit {
   }
   patientVisit(visitId: any) {
     this.router.navigate(['doctor', 'patient-record', this.patientEmail, 'visit', visitId])
+  }
+
+  toggleVisit(){
+    this.isVisitOpen = !this.isVisitOpen;
   }
 
 }

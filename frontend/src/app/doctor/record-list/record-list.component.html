@@ -1,21 +1,25 @@
 <h2>Patient Records</h2>
 <br><br>
-<table class="table">
-    <tr>
-        <th scope="col">Full Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Gender</th>
-        <th scope="col">Date of Birth </th>
-        <th scope="col">Update Record </th>
-        <th scope="col">Patient Record </th>
-    </tr>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Full Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Date of Birth </th>
+            <th scope="col">Update Record </th>
+            <th scope="col">Patient Record </th>
+        </tr>
+    </thead>
 
-    <tr *ngFor="let record of recordList">
-        <td>{{record.patientInfo.fullname}}</td>
-        <td>{{record.patientInfo.email}}</td>
-        <td>{{record.patientInfo.gen}}</td>
-        <td>{{record.patientInfo.dob}}</td>
-        <td><button (click)="patientRecord(record.patientInfo.email)">Open Record</button></td>
-        <td><button (click)="updateRecord(record.patientInfo.email)">Update Record</button></td>
-    </tr>
+    <tbody>
+        <tr *ngFor="let record of recordList">
+            <td scope="row">{{record.patientInfo.fullname}}</td>
+            <td>{{record.patientInfo.email}}</td>
+            <td>{{record.patientInfo.gen}}</td>
+            <td>{{record.patientInfo.dob}}</td>
+            <td><button (click)="patientRecord(record.patientInfo.email)">Open Record</button></td>
+            <td><button (click)="updateRecord(record.patientInfo.email)">Update Record</button></td>
+        </tr>
+    </tbody>
 </table>

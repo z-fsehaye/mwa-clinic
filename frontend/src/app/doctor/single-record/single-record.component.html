@@ -1,29 +1,67 @@
 <h2>Patient Record</h2>
 <br><br>
-<p>Full name : {{record.patientInfo.fullname}}</p>
+<dl class="dl-horizontal">
+    <dt>Full Name</dt>
+    <dd>{{record.patientInfo.fullname}}</dd>
+
+    <dt>Address</dt>
+    <dd>{{record.patientInfo.address}}</dd>
+
+    <dt>Date Of Birth</dt>
+    <dd>{{record.patientInfo.dob}}</dd>
+
+    <dt>Email</dt>
+    <dd>{{record.patientInfo.email}}</dd>
+
+    <dt>Gender</dt>
+    <dd>{{record.patientInfo.gen}}</dd>
+
+    <dt>Doctor Assigned: </dt><br>
+    <dt>Doctor name</dt>
+    <dd>{{record.patientInfo.doctor.doctorName}}</dd>
+    <dt>Doctor Email</dt>
+    <dd>{{record.patientInfo.doctor.doctorEmail}}</dd>
+</dl>
+
+<!-- <p>Full name : {{record.patientInfo.fullname}}</p>
 <p>Address : {{record.patientInfo.address}}</p>
 <p>Date of Birth : {{record.patientInfo.dob}}</p>
 <p>Email : {{record.patientInfo.email}}</p>
 <p>Gender : {{record.patientInfo.gen}}</p>
-<p>Doctor assigned :
+<p>Doctor assigned : <br>
     <span>Doctor Name: {{record.patientInfo.doctor.doctorName}}</span> <br>
     <span>Doctor email: {{record.patientInfo.doctor.doctorEmail}}</span>
-</p>
+</p> -->
+<br><br>
 <h3>Visits</h3>
 
 <div>
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Visit reason</th>
-            <th></th>
-        </tr>
-        <tr *ngFor="let visit of visits">
-            <td>{{visit.date}}</td>
-            <td>{{visit.reason}}</td>
-            <td><button (click)="patientVisit(visit._id)">Open Visit</button></td>
-        </tr>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Visit reason</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let visit of visits">
+                <td scope="row">{{visit.date}}</td>
+                <td>{{visit.reason}}</td>
+                <td><button (click)="patientVisit(visit._id)">Open Visit</button></td>
+                <!-- <td><button (click)="toggleVisit()" *ngIf="!isVisitOpen">Open Visit</button></td> -->
+
+
+            </tr>
+        </tbody>
     </table>
+    <div *ngIf="isVisitOpen">
+        <p>Visit Date : {{visits[0].date}}</p>
+        <p>Visit Reason : {{visits[0].reason}}</p>
+        <p>Diagnosis : {{visits[0].diagnosis}}</p>
+        <p>Prescription : {{visits[0].prescription}}</p>
+        <button (click)="toggleVisit()">Close Visit</button>
+    </div>
     <button (click)="addVisit()">Add Visit</button>
 
 </div>

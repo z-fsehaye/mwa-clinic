@@ -1,0 +1,9 @@
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css'); 
+
+.myContent {
+    display: flex;
+    margin: auto;
+    margin-top: 80px;
+    max-width: 960px;
+    flex-direction: column;
+}
