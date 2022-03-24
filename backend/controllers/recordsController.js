@@ -134,7 +134,6 @@ module.exports.getPatientVisitById = async (req, res, next) => {
         res.json({ message: "No visit found!" })
     }
     else {
-        console.log('check!!!! ', visit)
         res.json(visit)
     }
 }
